@@ -20,6 +20,7 @@ import java.util.Locale;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.example.hospital")
 public class WebApplicationContextConfig implements WebMvcConfigurer {
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
@@ -29,7 +30,6 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
-
         registry.addInterceptor(localeChangeInterceptor);
     }
 

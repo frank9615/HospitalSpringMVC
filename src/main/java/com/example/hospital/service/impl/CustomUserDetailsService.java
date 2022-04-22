@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Utente non Trovato!!");
         }
         UserBuilder userBuilder = org.springframework.security.core.userdetails.User.withUsername(user.getUsername());;
-        userBuilder.password(user.getPassword());
+        userBuilder.password("{noop}"+ user.getPassword());
         userBuilder.authorities("ROLE_" + user.getRole());
 
         return userBuilder.build();

@@ -28,7 +28,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         UsernamePasswordAuthenticationToken authRequest = getAuthRequest(request);
         setDetails(request, authRequest);
-
         return this.getAuthenticationManager().authenticate(authRequest);
 
     }

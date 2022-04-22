@@ -1,10 +1,12 @@
 package com.example.hospital.entities;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
+@DiscriminatorValue("OPERATOR")
 public class Operator extends User {
     @OneToMany(mappedBy = "operator")
     private Set<Triage> triages;

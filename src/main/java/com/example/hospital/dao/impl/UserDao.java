@@ -16,18 +16,16 @@ public class UserDao extends AbstractDao<User, Long> implements IUserDao {
     @Override
     public User findByUsername(String username) {
         User user = null;
-        try {
+        try{
             CriteriaBuilder queryBuilder = entityManager.getCriteriaBuilder();
             CriteriaQuery<User> queryDefinition = queryBuilder.createQuery(User.class);
-
             Root<User> recordset = queryDefinition.from(User.class);
 
             queryDefinition.select(recordset).
                     where(queryBuilder.equal(recordset.get("username"), username));
-
             user = entityManager.createQuery(queryDefinition).getSingleResult();
-        }catch (Exception ex){
-            System.out.println("Utente non trovato!");
+        }catch(Exception ex){
+            ex.printStackTrace();
         }
         return user;
     }

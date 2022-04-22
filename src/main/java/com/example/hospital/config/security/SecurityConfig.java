@@ -70,7 +70,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/login/**").permitAll()
-                .antMatchers("/").hasAnyRole("ANONYMOUS", "USER")
                 .antMatchers(ADMIN_PAGES).access("hasRole('ADMIN')")
                 .antMatchers(DOCTOR_PAGES).access("hasRole('DOCTOR')")
                 .antMatchers(OPERATOR_PAGES).access("hasRole('OPERATOR')")
@@ -88,11 +87,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/login/form?logout")
-        //.logoutSuccessHandler(customLogoutSuccessHandler);
-        //.invalidateHttpSession(true)
-        //.logoutSuccessHandler(customLogoutSuccessHandler)
-        //.clearAuthentication(true);
-        .and().csrf().disable();
+            .and().csrf().disable();
 
     }
 

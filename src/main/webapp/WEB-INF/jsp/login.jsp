@@ -24,7 +24,7 @@
     </c:if>
     <!-- Attenzione che i parametri di username e password devono combaciare con i parametri inseriti dentro il config -->
     <label for="username" />
-    <input type="text" id="username" name=username" placeholder="username" required />
+    <input type="text" id="username" name="username" placeholder="username" required />
     <label for="password" />
     <input type="password" id="password" name="password" required />
     <!-- Richiesto nel caso in cui il cross origin è disabilitato/abilitato -->

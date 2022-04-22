@@ -1,5 +1,6 @@
 package com.example.hospital.service.impl;
 
+import com.example.hospital.dao.IUserDao;
 import com.example.hospital.dao.impl.UserDao;
 import com.example.hospital.entities.User;
 import com.example.hospital.service.IUserService;
@@ -14,7 +15,7 @@ import javax.transaction.Transactional;
 public class UserService implements IUserService {
 
     @Autowired
-    private UserDao userDao;
+    private IUserDao userDao;
 
     @Override
     public User findByUsername(String username) {

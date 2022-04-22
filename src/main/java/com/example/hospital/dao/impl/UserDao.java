@@ -27,7 +27,7 @@ public class UserDao extends AbstractDao<User, Long> implements IUserDao {
 
             user = entityManager.createQuery(queryDefinition).getSingleResult();
         }catch (Exception ex){
-            ex.printStackTrace();
+            System.out.println("Utente non trovato!");
         }
         return user;
     }

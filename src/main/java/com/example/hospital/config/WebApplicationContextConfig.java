@@ -18,7 +18,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.example.hospital")
+@ComponentScan(basePackages = {"com.example.hospital"})
 public class WebApplicationContextConfig implements WebMvcConfigurer {
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 
-@Service
+@Service("userService")
 @Transactional
 public class UserService implements IUserService {
 

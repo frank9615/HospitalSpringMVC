@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -81,6 +82,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login/form?error")
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .successHandler(myAuthenticationSuccessHandler())
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/login/form?forbidden")
@@ -99,7 +101,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
         filter.setAuthenticationManager(authenticationManagerBean());
         filter.setAuthenticationFailureHandler(failureHandler());
-        filter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
+        filter.setAuthenticationSuccessHandler(myAuthenticationSuccessHandler());
 
         return filter;
 
@@ -110,11 +112,16 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler() {
+    public SavedRequestAwareAuthenticationSuccessHandler savedAuthenticationSuccessHandler() {
         SavedRequestAwareAuthenticationSuccessHandler auth = new SavedRequestAwareAuthenticationSuccessHandler();
         auth.setTargetUrlParameter("targetUrl");
 
         return auth;
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MySimpleUrlAuthenticationSuccessHandler();
     }
 
 }

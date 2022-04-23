@@ -16,10 +16,4 @@ public class LoginController {
         return "login";
     }
 
-
-    @RequestMapping
-    public String geLogin(Model model) {
-        model.addAttribute("message", "Message from IndexController");
-        return "login";
-    }
 }

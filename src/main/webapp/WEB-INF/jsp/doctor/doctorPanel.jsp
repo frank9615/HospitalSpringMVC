@@ -11,7 +11,7 @@
     <title>Doctor Page</title>
 </head>
 <body>
-<h1>Doctor Page</h1>ß
+<h1>Doctor Page</h1>
 
 </body>
 </html>

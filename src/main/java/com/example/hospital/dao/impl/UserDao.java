@@ -12,7 +12,6 @@ import javax.persistence.criteria.Root;
 @Repository
 public class UserDao extends AbstractDao<User, Long> implements IUserDao {
 
-
     @Override
     public User findByUsername(String username) {
         User user = null;
@@ -30,23 +29,4 @@ public class UserDao extends AbstractDao<User, Long> implements IUserDao {
         return user;
     }
 
-    @Override
-    public User findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public void save(User user) {
-
-    }
-
-    @Override
-    public void update(User user) {
-
-    }
-
-    @Override
-    public void delete(User user) {
-
-    }
 }

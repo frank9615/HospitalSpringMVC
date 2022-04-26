@@ -12,4 +12,6 @@ public interface ITriageDao {
     void save(Triage triage);
     void update(Triage triage);
     void delete(Triage triage);
+
+    List<Triage> getAll();
 }

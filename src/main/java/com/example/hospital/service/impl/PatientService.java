@@ -6,6 +6,7 @@ import com.example.hospital.service.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service("patientService")
 @Transactional
@@ -40,5 +41,10 @@ public class PatientService implements IPatientService {
     public void delete(Patient patient) {
         this.patientDao.delete(patient);
 
+    }
+
+    @Override
+    public List<Patient> getAll() {
+        return this.patientDao.getAll();
     }
 }

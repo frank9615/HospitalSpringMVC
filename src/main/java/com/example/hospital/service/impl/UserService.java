@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service("userService")
 @Transactional
@@ -50,5 +51,15 @@ public class UserService implements IUserService {
     @Override
     public Operator getOperatorByUsername(String username) {
         return this.userDao.getOperatorByUsername(username);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return this.userDao.getAll();
+    }
+
+    @Override
+    public List<User> getAllDoctor() {
+        return this.userDao.getAllDoctor();
     }
 }

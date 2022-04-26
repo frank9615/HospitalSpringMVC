@@ -51,4 +51,9 @@ public class TriageService implements ITriageService {
     public List<Triage> getByOperatorId(Long id) {
         return this.triageDao.getByOperatorId(id);
     }
+
+    @Override
+    public List<Triage> getAll() {
+        return this.triageDao.getAll();
+    }
 }

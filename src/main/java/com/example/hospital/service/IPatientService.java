@@ -2,6 +2,8 @@ package com.example.hospital.service;
 
 import com.example.hospital.entities.Patient;
 
+import java.util.List;
+
 public interface IPatientService {
     Patient findByCF(String cf);
 
@@ -12,4 +14,6 @@ public interface IPatientService {
     void update(Patient patient);
 
     void delete(Patient patient);
+
+    List<Patient> getAll();
 }

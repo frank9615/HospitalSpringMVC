@@ -4,6 +4,8 @@ import com.example.hospital.entities.Doctor;
 import com.example.hospital.entities.Operator;
 import com.example.hospital.entities.User;
 
+import java.util.List;
+
 public interface IUserService {
     User findByUsername(String username);
 
@@ -18,4 +20,8 @@ public interface IUserService {
     Doctor getDoctorByUsername(String username);
 
     Operator getOperatorByUsername(String username);
+
+    List<User> getAll();
+
+    List<User> getAllDoctor();
 }

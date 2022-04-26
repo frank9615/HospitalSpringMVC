@@ -19,4 +19,6 @@ public interface ITriageService {
 
     List<Triage> getByOperatorId(Long id);
 
+    List<Triage> getAll();
+
 }

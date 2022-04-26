@@ -5,12 +5,14 @@ import com.example.hospital.dao.IUserDao;
 import com.example.hospital.entities.Doctor;
 import com.example.hospital.entities.Operator;
 import com.example.hospital.entities.User;
+import com.example.hospital.enums.Role;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Repository
 public class UserDao extends AbstractDao<User, Long> implements IUserDao {
@@ -46,6 +48,17 @@ public class UserDao extends AbstractDao<User, Long> implements IUserDao {
         Operator operator = (Operator) this.findByUsername(username);
         Hibernate.initialize(operator.getTriages());
         return operator;
+    }
+
+    @Override
+    public List<User> getAllDoctor() {
+        CriteriaBuilder queryBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> queryDefinition = queryBuilder.createQuery(User.class);
+        Root<User> recordset = queryDefinition.from(User.class);
+
+        queryDefinition.select(recordset).
+                where(queryBuilder.equal(recordset.get("role"), Role.DOCTOR));
+        return entityManager.createQuery(queryDefinition).getResultList();
     }
 
 }

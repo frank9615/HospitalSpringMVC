@@ -3,7 +3,10 @@ package com.example.hospital.dao;
 import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class AbstractDao<C extends Serializable, Id extends Serializable>
     implements GenericRepository<C, Id> {
@@ -57,5 +60,14 @@ public abstract class AbstractDao<C extends Serializable, Id extends Serializabl
         //         Changes made to entities that have not been flushed to the database will not be persisted.
         entityManager.flush();
         entityManager.clear();
+    }
+
+    @Override
+    public List<C> getAll(){
+        CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+        CriteriaQuery<C> query = builder.createQuery(this.entityClass);
+
+        return this.entityManager.createQuery(
+                query.select(query.from(this.entityClass))).getResultList();
     }
 }

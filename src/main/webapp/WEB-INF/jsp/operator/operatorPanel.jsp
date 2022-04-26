@@ -17,6 +17,7 @@
 </head>
 <body>
     <h1>Operator Page</h1>
+    <p> Welcome ${user}</p>
     <h3>Registrazione Paziente</h3>
     <div name="addPatient">
         <form id="registrationForm" action="/savePatient">
@@ -34,11 +35,6 @@
             <br><br>
             <input id="submitButton" type="submit" value="Submit">
         </form>
-    </div>
-    <div name="addTriage">
-        <form:form method="POST" modelattribute="Triage">
-           <!-- Inserire i campi per la registrazione del traige -->
-        </form:form>
     </div>
 </body>
 </html>

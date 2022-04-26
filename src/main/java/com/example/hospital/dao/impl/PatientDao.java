@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Repository
 public class PatientDao extends AbstractDao<Patient, Long>  implements IPatientDao {
@@ -25,4 +26,6 @@ public class PatientDao extends AbstractDao<Patient, Long>  implements IPatientD
         }
         return patient;
     }
+
+
 }

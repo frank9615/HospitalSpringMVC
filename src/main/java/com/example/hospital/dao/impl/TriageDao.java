@@ -27,6 +27,8 @@ public class TriageDao extends AbstractDao<Triage, Long> implements ITriageDao {
         return this.getByPropertyID(id, "operator_id");
     }
 
+
+
     private List<Triage> getByPropertyID(Long id, String property){
         List<Triage> triages;
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();

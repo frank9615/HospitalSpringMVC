@@ -8,11 +8,10 @@ $(function () {
         //Remove previous errors
         $('input').next('span').remove();
 
-        $.post({
+        $.ajax({
+            type: "POST",
             url: '/SpringMVCHospital/operator/savePatient',
             data: $('#registrationForm').serialize(),
-            dataType: 'json',
-            contentType : 'application/json; charset=utf-8',
             success: function (res) {
                 if (res.validated) {
                     //take your successful action here; you may want to redirect to another page
@@ -24,10 +23,9 @@ $(function () {
                     });
                 }
             },
-            error: function (){
+            error: function () {
                 alert("Si è verificato un errore");
             }
         })
     });
-
 });

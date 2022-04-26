@@ -2,7 +2,6 @@ package com.example.hospital.controller;
 
 
 import com.example.hospital.config.security.SpringSecurityUserContext;
-import com.example.hospital.domain.TriageDomain;
 import com.example.hospital.entities.*;
 import com.example.hospital.response.PatientResponse;
 import com.example.hospital.service.IPatientService;
@@ -13,18 +12,13 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.Binding;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -48,24 +42,27 @@ public class OperatorPanelController {
         return "operator/operatorPanel";
     }
 
-    /* MediaType.APPLICATION_JSON_VALUE -> Is a String equivalent of APPLICATION_JSON. */
     @PostMapping(value = "/savePatient", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public PatientResponse savePatient(@ModelAttribute @Valid Patient patient, BindingResult result){
         PatientResponse response = new PatientResponse();
-        if(result.hasErrors()){
+
+        System.out.println("Paziente registrato " + patient);
+        if (result.hasErrors()) {
             Map<String, String> errors = result.getFieldErrors().stream().collect(
                     Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
             response.setValidated(false);
             response.setErrorMessages(errors);
-        }else{
+        } else {
             response.setValidated(true);
             patient.setRegistrationDate(new Date());
             this.patientService.save(patient);
         }
+
     return response;
     }
 
+    /*
     @GetMapping(value="/addTriage")
     public String insTriage(Model model){
         List<User> doctors = this.userService.getAllDoctor();
@@ -78,7 +75,7 @@ public class OperatorPanelController {
     @PostMapping(value="/addTriage")
     public void addTriage(@Valid @ModelAttribute("newTriage") TriageDomain newTriage, BindingResult result, Model model){
         System.out.println(newTriage);
-        /*
+
         Triage triage = new Triage();
         Patient patient = this.patientService.findByCF(newTriage.getCf());
         Operator operator = this.userService.getOperatorByUsername(new SpringSecurityUserContext().getCurrentUser());
@@ -90,9 +87,9 @@ public class OperatorPanelController {
         triage.setTriageDate(new Date());
         triage.setTriageColor(newTriage.getTriageColor());
         triageService.save(triage);
-        */
 
     }
+    */
 
     @InitBinder
     public void initialiseBinder(WebDataBinder binder) {

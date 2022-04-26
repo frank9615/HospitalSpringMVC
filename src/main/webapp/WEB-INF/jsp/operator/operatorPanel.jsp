@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
     <title>Operator Page</title>
@@ -22,16 +21,16 @@
     <div name="addPatient">
         <form id="registrationForm" action="/savePatient">
             Codice Fiscale: <br>
-            <input type="text" id="cf" name="cf" required >
+            <input type="text" id="cf" name="cf"  value ="">
             <br>
             First name:<br>
-            <input type="text" id="name" name="name" value="" required>
+            <input type="text" id="name" name="name" value="" >
             <br>
             Last name:<br>
-            <input type="text" id="surname" name="surname" value="" required>
+            <input type="text" id="surname" name="surname" value="" >
             <br>
             Data di nascita:<br>
-            <input type="date" id="birthday" name="birthday"  required>
+            <input type="date" id="birthday" name="birthday"  >
             <br><br>
             <input id="submitButton" type="submit" value="Submit">
         </form>

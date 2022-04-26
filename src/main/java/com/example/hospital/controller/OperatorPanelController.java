@@ -2,6 +2,7 @@ package com.example.hospital.controller;
 
 
 import com.example.hospital.config.security.SpringSecurityUserContext;
+import com.example.hospital.domain.TriageDomain;
 import com.example.hospital.entities.*;
 import com.example.hospital.response.PatientResponse;
 import com.example.hospital.service.IPatientService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -35,22 +37,25 @@ public class OperatorPanelController {
     @Autowired
     private ITriageService triageService;
 
+    private List<User> doctors;
+
+    protected void getDoctorList(){
+        this.doctors = this.userService.getAllDoctor();
+    }
+
     @GetMapping("/operatorPanel")
-    public String getOperatorPanel(Model model){
-        String currentUser =  new SpringSecurityUserContext().getCurrentUser();
+    public String getOperatorPanel(Model model) {
+        String currentUser = new SpringSecurityUserContext().getCurrentUser();
         model.addAttribute("user", currentUser);
         return "operator/operatorPanel";
     }
 
     @PostMapping(value = "/savePatient", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public PatientResponse savePatient(@ModelAttribute @Valid Patient patient, BindingResult result){
+    public PatientResponse savePatient(@ModelAttribute("savePatient") @Valid Patient patient, BindingResult result) {
         PatientResponse response = new PatientResponse();
-
-        System.out.println("Paziente registrato " + patient);
         if (result.hasErrors()) {
-            Map<String, String> errors = result.getFieldErrors().stream().collect(
-                    Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+            Map<String, String> errors = result.getFieldErrors().stream().collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
             response.setValidated(false);
             response.setErrorMessages(errors);
         } else {
@@ -58,24 +63,25 @@ public class OperatorPanelController {
             patient.setRegistrationDate(new Date());
             this.patientService.save(patient);
         }
-
-    return response;
+        return response;
     }
 
-    /*
-    @GetMapping(value="/addTriage")
-    public String insTriage(Model model){
-        List<User> doctors = this.userService.getAllDoctor();
+
+    @GetMapping(value = "/addTriage")
+    public String insTriage(Model model) {
+        this.getDoctorList();
         model.addAttribute("doctors", doctors);
-        TriageDomain newTriage = new TriageDomain();
-        model.addAttribute("newTriage", newTriage);
+        TriageDomain triageDomain = new TriageDomain();
+        model.addAttribute("newTriage", triageDomain);
         return "operator/addTriage";
     }
 
     @PostMapping(value="/addTriage")
-    public void addTriage(@Valid @ModelAttribute("newTriage") TriageDomain newTriage, BindingResult result, Model model){
-        System.out.println(newTriage);
-
+    public String addTriage(@Valid @ModelAttribute("newTriage") TriageDomain newTriage, BindingResult result, Model model){
+        if(this.doctors == null){
+            this.getDoctorList();
+        }
+        model.addAttribute("doctors", doctors);
         Triage triage = new Triage();
         Patient patient = this.patientService.findByCF(newTriage.getCf());
         Operator operator = this.userService.getOperatorByUsername(new SpringSecurityUserContext().getCurrentUser());
@@ -87,14 +93,20 @@ public class OperatorPanelController {
         triage.setTriageDate(new Date());
         triage.setTriageColor(newTriage.getTriageColor());
         triageService.save(triage);
+        return "/operator/addTriage";
 
     }
-    */
 
-    @InitBinder
+
+    @InitBinder("savePatient")
     public void initialiseBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, "birthday", new CustomDateEditor(dateFormat, true));
         binder.setAllowedFields("cf", "name", "surname", "birthday");
+    }
+
+    @InitBinder("newTriage")
+    public void initialiseBinder2(WebDataBinder binder){
+        binder.setAllowedFields("cf", "notes", "doctor_id", "triageColor");
     }
 }

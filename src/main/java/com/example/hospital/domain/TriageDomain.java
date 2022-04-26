@@ -1,27 +1,27 @@
 package com.example.hospital.domain;
 
 import com.example.hospital.enums.TriageColor;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import com.example.hospital.validator.PatientCf;
+import com.example.hospital.validator.UserId;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class TriageDomain implements Serializable {
     @NotEmpty(message = "Inserisci un codice fiscale")
+    @PatientCf(message = "Codice fiscale non valido")
     private String cf;
 
     @NotNull
-    private String triageColor;
+    private TriageColor triageColor;
 
-    @NotNull
-    private Integer doctor_id;
+    @NotNull(message ="Utente non valido")
+    private Long doctor_id;
 
-    @NotEmpty(message = "Inserisci un valore")
+    @NotEmpty(message = "Nota non valida")
     private String notes;
 
-    public TriageDomain(){
+    public TriageDomain() {
 
     }
 
@@ -33,19 +33,19 @@ public class TriageDomain implements Serializable {
         this.cf = cf;
     }
 
-    public String getTriageColor() {
+    public TriageColor getTriageColor() {
         return triageColor;
     }
 
-    public void setTriageColor(String triageColor) {
+    public void setTriageColor(TriageColor triageColor) {
         this.triageColor = triageColor;
     }
 
-    public Integer getDoctor_id() {
+    public Long getDoctor_id() {
         return doctor_id;
     }
 
-    public void setDoctor_id(Integer doctor_id) {
+    public void setDoctor_id(Long doctor_id) {
         this.doctor_id = doctor_id;
     }
 
@@ -61,7 +61,7 @@ public class TriageDomain implements Serializable {
     public String toString() {
         return "TriageDomain{" +
                 "cf='" + cf + '\'' +
-                ", triageColor='" + triageColor + '\'' +
+                ", triageColor=" + triageColor +
                 ", doctor_id=" + doctor_id +
                 ", notes='" + notes + '\'' +
                 '}';

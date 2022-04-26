@@ -1,5 +1,7 @@
 package com.example.hospital.service;
 
+import com.example.hospital.entities.Doctor;
+import com.example.hospital.entities.Operator;
 import com.example.hospital.entities.User;
 
 public interface IUserService {
@@ -12,4 +14,8 @@ public interface IUserService {
     void update(User user);
 
     void delete(User user);
+
+    Doctor getDoctorByUsername(String username);
+
+    Operator getOperatorByUsername(String username);
 }

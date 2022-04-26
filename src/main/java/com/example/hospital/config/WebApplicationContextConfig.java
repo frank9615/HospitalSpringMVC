@@ -33,8 +33,8 @@ public class WebApplicationContextConfig implements WebMvcConfigurer {
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/js/**")
-                .addResourceLocations("/static/js/");
+        registry.addResourceHandler("/js/**", "/css/**")
+                .addResourceLocations("/static/js/", "static/css/");
     }
 
     @Bean

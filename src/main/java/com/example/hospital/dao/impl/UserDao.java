@@ -2,7 +2,10 @@ package com.example.hospital.dao.impl;
 
 import com.example.hospital.dao.AbstractDao;
 import com.example.hospital.dao.IUserDao;
+import com.example.hospital.entities.Doctor;
+import com.example.hospital.entities.Operator;
 import com.example.hospital.entities.User;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -11,6 +14,8 @@ import javax.persistence.criteria.Root;
 
 @Repository
 public class UserDao extends AbstractDao<User, Long> implements IUserDao {
+
+
 
     @Override
     public User findByUsername(String username) {
@@ -27,6 +32,20 @@ public class UserDao extends AbstractDao<User, Long> implements IUserDao {
             ex.printStackTrace();
         }
         return user;
+    }
+
+    @Override
+    public Doctor getDoctorByUsername(String username) {
+        Doctor doctor = (Doctor) this.findByUsername(username);
+        Hibernate.initialize(doctor.getTriages());
+        return doctor;
+    }
+
+    @Override
+    public Operator getOperatorByUsername(String username) {
+        Operator operator = (Operator) this.findByUsername(username);
+        Hibernate.initialize(operator.getTriages());
+        return operator;
     }
 
 }

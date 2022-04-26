@@ -33,6 +33,7 @@ public class OperatorPanelController {
     public String getOperatorPanel(Model model){
         return "operator/operatorPanel";
     }
+
     /* MediaType.APPLICATION_JSON_VALUE -> Is a String equivalent of APPLICATION_JSON. */
     @PostMapping(value = "/savePatient", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody

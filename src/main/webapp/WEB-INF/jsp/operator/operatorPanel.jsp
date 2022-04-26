@@ -17,6 +17,9 @@
 <body>
     <h1>Operator Page</h1>
     <p> Welcome ${user}</p>
+    <button onclick="location.href='addTriage'" type="button">
+        Add Triage
+    </button>
     <h3>Registrazione Paziente</h3>
     <div name="addPatient">
         <form id="registrationForm" action="/savePatient">

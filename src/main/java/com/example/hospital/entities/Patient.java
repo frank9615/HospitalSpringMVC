@@ -3,6 +3,9 @@ package com.example.hospital.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -15,12 +18,17 @@ public class Patient implements Serializable {
     private Long id;
     @Basic
     @Column(unique = true)
+    @NotEmpty(message = "{NotEmpty.Patient.cf.validation}")
     private String cf;
     @Basic
+    @NotEmpty(message = "{NotEmpty.Patient.name.validation}")
     private String name;
     @Basic
+    @NotEmpty(message = "{NotEmpty.Patient.surname.validation}")
     private String surname;
     @Temporal(TemporalType.DATE)
+    @Past
+    @NotNull
     private Date birthday;
     @Temporal(TemporalType.DATE)
     private Date registrationDate;
@@ -85,5 +93,17 @@ public class Patient implements Serializable {
 
     public void setTriages(Set<Triage> triages) {
         this.triages = triages;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", cf='" + cf + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                ", registrationDate=" + registrationDate +
+                '}';
     }
 }
